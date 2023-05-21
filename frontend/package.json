@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "homepage": "facebook-clone-mern-moohabir.vercel.app",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
