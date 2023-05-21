@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://facebook-clone-mern-moohabir.vercel.app/api/users/';
+const API_URL = 'facebook-clone-mern-eight.vercel.app/api/users/';
 
 // Register user
 const register = async (userData) => {
