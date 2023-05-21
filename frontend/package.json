@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "proxy": "http://localhost:9000",
+  "proxy": "https://facebook-clone-mern-moohabir.vercel.app/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
