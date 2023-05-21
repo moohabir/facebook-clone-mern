@@ -16,7 +16,7 @@ function Home() {
 
   return (
     <div style={{ display: 'flex', backgroundColor: '#f0f2f5' }}>
-      {!user ? (
+      {user ? (
         <>
           <Grid
             container
