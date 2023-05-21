@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "homepage": "https://facebook-clone-mern-seven.vercel.app/",
   "proxy": "http://localhost:9000",
   "private": true,
   "dependencies": {
