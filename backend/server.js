@@ -13,7 +13,15 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors());
+
+// Configure CORS
+app.use(
+  cors({
+    origin: 'https://facebook-clone-mern-moohabir.vercel.app', // Replace with your Vercel deployment URL
+    // You can also use a list of allowed origins:
+    origin: 'https://facebook-clone-mern-eight.vercel.app',
+  })
+);
 
 app.use('/api/posts', require('./routes/postRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
@@ -33,6 +41,6 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(errorHandler);
 
-//if (port) {
-//  app.listen(port, '0.0.0.0', () => console.log('Server started '));
-//}
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
+});
