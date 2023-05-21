@@ -1,0 +1,144 @@
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  AppBar,
+  Avatar,
+  Badge,
+  Box,
+  Button,
+  Grid,
+  Toolbar,
+  Typography,
+} from '@mui/material';
+
+//import { UserAuthContext } from '../context/UserAuthContext';
+import HomeIcon from '@mui/icons-material/Home';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import AddIcon from '@mui/icons-material/Add';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, reset } from '../../features/auth/authSlice';
+import './Navbar.css';
+
+function Navbar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user, isError, isSuccess, isLoading, message } = useSelector(
+    (state) => state.auth
+  );
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate('/login');
+  };
+  return (
+    <AppBar
+      position="sticky"
+      spacing={3}
+      style={{
+        backgroundColor: 'white',
+        color: 'black',
+        width: '100%',
+        display: 'flex',
+      }}
+    >
+      <Toolbar
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          //padding: '10px, 20px',
+          height: '50px',
+          //backgroundColor: '#f0f2f5',
+
+          //backgroundColor: '#ffff',
+        }}
+      >
+        <div className="container">
+          {/*hoos avatarka ku badal currentUser.image oo lagusoo daray backendska*/}
+          <Avatar
+            component={Link}
+            to="/"
+          />
+          <input
+            className="input"
+            placeholder="Search Facebook"
+
+            //iconSart={
+            // <SearchIcon
+            //sx={{ height: '15px', width: '15px', color: 'black' }}
+            //>
+            //}
+          />
+        </div>
+
+        <div className="icons">
+          <Grid
+            container
+            spacing={3}
+          >
+            <Grid item>
+              <HomeIcon
+                sx={{
+                  color: 'blue',
+                  '&:hover': {
+                    text: 'Home',
+                  },
+                }}
+              />
+              <HomeIcon />
+              <Badge badgeContent={9}>
+                <HomeIcon />
+              </Badge>
+              <HomeIcon />
+              <HomeIcon />
+            </Grid>
+          </Grid>
+          {/*<Button
+            onClick={togle}
+            sx={{ color: 'black' }}
+            >
+            {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+          </Button>*/}
+        </div>
+
+        <Grid
+          item
+          sx={{ display: { xs: 'none', sm: 'block' } }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              gap: '10px',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <AddIcon />
+            <Badge
+              badgeContent={3}
+              sx={{ color: 'danger' }}
+            >
+              <NotificationsIcon />
+            </Badge>
+            <Avatar
+              src=""
+              alt=""
+            />
+            <Typography> {user?.name}</Typography>
+            {user && (
+              <Button
+                onClick={onLogout}
+                sx={{ color: 'black' }}
+              >
+                Logout
+              </Button>
+            )}
+          </div>
+        </Grid>
+      </Toolbar>
+    </AppBar>
+  );
+}
+
+export default Navbar;
