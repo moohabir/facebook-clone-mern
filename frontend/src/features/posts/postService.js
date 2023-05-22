@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api/posts/';
+const API_URL = 'https://facebook-clone-mern-five.vercel.app/api/posts/';
 
 // Create new post
 const createPost = async (postData, token) => {
