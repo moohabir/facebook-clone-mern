@@ -43,7 +43,7 @@ function App() {
         width: '100%',
       }}
     >
-      <Router basename="/">
+      <Router>
         {user && <Navbar />}
         <CssBaseline />
 
