@@ -16,37 +16,33 @@ function Home() {
 
   return (
     <div style={{ display: 'flex', backgroundColor: '#f0f2f5' }}>
-      {user ? (
-        <>
+      <>
+        <Grid
+          container
+          spacing={3}
+        >
           <Grid
-            container
-            spacing={3}
+            item
+            xs={6}
+            sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            <Grid
-              item
-              xs={6}
-              sx={{ display: { xs: 'none', sm: 'block' } }}
-            >
-              <Leftbar />
-            </Grid>
+            <Leftbar />
           </Grid>
-          <Posts />
+        </Grid>
+        <Posts />
+        <Grid
+          container
+          spacing={3}
+        >
           <Grid
-            container
-            spacing={3}
+            item
+            xs={6}
+            sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            <Grid
-              item
-              xs={6}
-              sx={{ display: { xs: 'none', sm: 'block' } }}
-            >
-              <Rightbar />
-            </Grid>
+            <Rightbar />
           </Grid>
-        </>
-      ) : (
-        <Login />
-      )}
+        </Grid>
+      </>
     </div>
   );
 }
