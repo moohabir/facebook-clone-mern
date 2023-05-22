@@ -16,8 +16,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // Configure CORS
 app.use(
-  cors()
-  //origin: 'https://facebook-clone-mern-eight.vercel.app/',
+  cors({
+    origin: 'https://facebook-clone-mern-ochre.vercel.app/',
+  })
 );
 
 app.use('/api/posts', require('./routes/postRoutes'));
