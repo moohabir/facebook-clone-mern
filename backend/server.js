@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 // Configure CORS
 app.use(
   cors({
-    origin: 'facebook-clone-mern-moohabir.vercel.app', // Replace with your Vercel deployment URL
+    origin: 'https://facebook-clone-mern-moohabir.vercel.app',
   })
 );
 
