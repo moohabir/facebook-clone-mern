@@ -1,10 +1,5 @@
-import { useState } from 'react';
-import {
-  BrowserRouter as Router,
-  useNavigate,
-  Route,
-  Routes,
-} from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 //import './App.css';
 
@@ -22,11 +17,8 @@ import { CssBaseline } from '@mui/material';
 import CreateStory from './components/CreateStory/CreateStory';
 
 function App() {
-  const { user, isError, isSuccess, isLoading, message } = useSelector(
-    (state) => state.auth
-  );
+  const { user } = useSelector((state) => state.auth);
 
-  console.log(user);
   //const { darkMode, togle } = useContext(DarkModeContext);
   //const navigate = useNavigate();
 
