@@ -15,11 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Configure CORS
-app.use(
-  cors({
-    origin: 'https://facebook-clone-mern-five.vercel.app',
-  })
-);
+app.use(cors());
 
 app.use('/api/posts', require('./routes/postRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
