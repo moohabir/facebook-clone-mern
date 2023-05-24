@@ -7,7 +7,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NightlightIcon from '@mui/icons-material/Nightlight';
 import FeedbackIcon from '@mui/icons-material/Feedback';
-import { logout, reset } from '../../features/auth/authSlice';
+import { logout } from '../../features/auth/authSlice';
 import { useDispatch } from 'react-redux';
 
 function Account() {

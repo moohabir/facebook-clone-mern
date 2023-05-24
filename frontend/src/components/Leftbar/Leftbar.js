@@ -1,7 +1,6 @@
 import { Avatar, Divider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import './Leftbar.css';
-//import { Avatar } from 'react-chat-engine';
 
 function Leftbar() {
   const [seemore, setSeeMore] = useState(false);

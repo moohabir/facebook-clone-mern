@@ -1,16 +1,14 @@
 import {
-  Box,
   Button,
   CircularProgress,
   Divider,
   IconButton,
-  Stack,
   TextField,
   Typography,
 } from '@mui/material';
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
-import { Avatar } from 'react-chat-engine';
+
+import React, { useEffect, useState } from 'react';
+
 import { Link, useNavigate } from 'react-router-dom';
 
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';

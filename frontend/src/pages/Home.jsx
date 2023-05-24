@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import Posts from './Posts';
 
-//import { UserAuthContext } from '../context/UserAuthContext';
-
 import { Grid } from '@mui/material';
-import { useState } from 'react';
+
 import Login from './Login';
 import Leftbar from '../components/Leftbar/Leftbar';
 import Rightbar from '../components/Rightbar/Rightbar';
