@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://facebook-clone-mern.netlify.app/api/users/';
+const API_URL = 'https://facebook-clone-mern.onrender.com/api/users/';
 
 // Register user
 const register = async (userData) => {

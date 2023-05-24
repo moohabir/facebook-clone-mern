@@ -20,6 +20,7 @@ app.use(
     origin: [
       'https://facebook-clone-mern.netlify.app',
       'http://localhost:3000',
+      'https://facebook-clone-mern.onrender.com',
     ],
   })
 );
