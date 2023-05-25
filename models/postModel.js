@@ -11,6 +11,7 @@ const postSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add a text value'],
     },
+    image: { type: Object },
   },
   {
     timestamps: true,

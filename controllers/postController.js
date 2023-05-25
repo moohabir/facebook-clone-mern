@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
+const cloudinary = require('../utils/cloudinary');
 
 // Get posts
 //populate is used to show the name of the person posting the post but not only the loged in person
@@ -14,21 +15,35 @@ const getPosts = asyncHandler(async (req, res) => {
 // Create post
 
 const CreatePost = asyncHandler(async (req, res) => {
-  if (!req.body.text) {
+  const { text, user, image } = req.body;
+  let imageRes;
+
+  if (image) {
+    imageRes = await cloudinary.uploader.upload(image, {
+      upload_preset: 'facebookClone',
+    });
+  }
+
+  if (!text) {
     res.status(400);
     throw new Error('Please add a text field');
   }
+  if (imageRes) {
+    const post = await Post.create({
+      text,
+      user,
+      image: imageRes ? imageRes : undefined,
+    });
 
-  const post = await Post.create({
-    text: req.body.text,
-    user: req.user._id,
-  });
+    //halkaan hoose waa si nameka userka saxdaa loosoo helo populate method
 
-  //halkaan hoose waa si nameka userka saxdaa loosoo helo populate method
-
-  // Populate user's name in the post schema
-  const populatedPost = await Post.findById(post._id).populate('user', 'name');
-  res.status(200).json(populatedPost);
+    // Populate user's name in the post schema
+    const populatedPost = await Post.findById(post._id).populate(
+      'user',
+      'name'
+    );
+    res.status(200).json(populatedPost);
+  }
 });
 
 //  Update post

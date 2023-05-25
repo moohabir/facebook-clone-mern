@@ -1,9 +1,13 @@
 import { Avatar, Divider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import './Leftbar.css';
+import { useSelector } from 'react-redux';
 
 function Leftbar() {
   const [seemore, setSeeMore] = useState(false);
+  const { user, isError, isLoading, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
   return (
     <div
       style={{
@@ -27,7 +31,7 @@ function Leftbar() {
         }}
       >
         {/*halkaan hoose nameka update kadhig mid ah oo ah qofka loginka ah magaciisa*/}
-        <Avatar /> <span>Moha abdi</span>
+        <Avatar /> <span>{user.name}</span>
       </div>
       <div
         style={{

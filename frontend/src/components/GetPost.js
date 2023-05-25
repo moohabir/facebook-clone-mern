@@ -14,13 +14,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { deletePost } from '../features/posts/postSlice';
 
-import logo from '../assets/logo192.png';
+//import logo from '../assets/logo192.png';
 
 function GetPost({ post }) {
   const [open, setOpen] = useState(false);
   const { user, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.auth
   );
+
   const dispatch = useDispatch();
 
   const Delete = (id) => {
@@ -56,11 +57,14 @@ function GetPost({ post }) {
             }}
           >
             {post && (
-              //halkaan hoose user.nameka waa inaan saxaa oo uu noqdaa qofkii soo dhigay ee maaha qofka markaas login yiri sida hada. idga waa sax lkn nameka qalad
               <>
-                <Avatar />
+                {user.image ? (
+                  <Typography>{user.image}</Typography>
+                ) : (
+                  <Avatar />
+                )}
                 <Typography sx={{ paddingTop: '10px' }}>
-                  {post.user.name}
+                  {post?.user?.name}
                 </Typography>
                 <span style={{ paddingTop: '10px', alignSelf: 'center' }}>
                   {new Date(post.createdAt).toLocaleDateString()}
@@ -118,10 +122,14 @@ function GetPost({ post }) {
           }}
         >
           <Typography>{post.text}</Typography>
-          <img
-            src={logo}
-            alt="post photos"
-          />
+          {post.image ? (
+            <img
+              src={post?.image?.secure_url}
+              alt="post photos"
+            />
+          ) : (
+            ''
+          )}
         </div>
         <p> like icons </p>
         <div>

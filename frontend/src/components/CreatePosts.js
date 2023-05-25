@@ -17,8 +17,9 @@ const { useState } = require('react');
 
 function CreatePosts() {
   const [open, setOpen] = useState(false);
-
   const [text, setText] = useState('');
+  const [productImage, setProductImage] = useState('');
+  console.log(productImage);
 
   const { user } = useSelector((state) => state.auth);
 
@@ -31,9 +32,28 @@ function CreatePosts() {
     setOpen(true);
   };
 
+  const handleImage = async (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    TransformFile(file);
+  };
+
+  const TransformFile = (file) => {
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        console.log(reader.result);
+        setProductImage(reader.result);
+      };
+    } else {
+      setProductImage(' ');
+    }
+  };
+
   const Submithandler = (e) => {
     e.preventDefault();
-    dispatch(createPost({ text }));
+    dispatch(createPost({ text, image: productImage }));
     setText('');
     setOpen(false);
   };
@@ -65,7 +85,7 @@ function CreatePosts() {
           </Typography>
           <form onSubmit={Submithandler}>
             <Typography>
-              <Avatar /> {user.name}
+              <Avatar src={user.image} /> {user.name}
             </Typography>
             <Stack spacing={2}>
               <TextField
@@ -75,7 +95,19 @@ function CreatePosts() {
                 onChange={(e) => setText(e.target.value)}
                 required
               />
-
+              <input
+                type="file"
+                accept="image/"
+                onChange={handleImage}
+              />
+              {productImage ? (
+                <img
+                  src={productImage}
+                  alt={productImage}
+                />
+              ) : (
+                <p>N image to preview</p>
+              )}
               <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                 <Button onClick={() => setOpen(!open)}>Close</Button>
                 <Button type="submit">Post</Button>
