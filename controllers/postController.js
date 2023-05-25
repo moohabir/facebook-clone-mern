@@ -32,7 +32,13 @@ const CreatePost = asyncHandler(async (req, res) => {
     const post = await Post.create({
       text,
       user,
-      image: imageRes ? imageRes : undefined,
+      image: imageRes
+        ? {
+            url: imageRes.url,
+            secure_url: imageRes.secure_url,
+            // Add additional image details if needed
+          }
+        : undefined,
     });
 
     //halkaan hoose waa si nameka userka saxdaa loosoo helo populate method
@@ -62,13 +68,13 @@ const updatePost = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 
-  // Make sure the logged in user matches the goal user
-  if (goal.user.toString() !== req.user.id) {
+  // Make sure the logged in user matches the post user
+  if (post.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error('User not authorized');
   }
 
-  const updatedPost = await Goal.findByIdAndUpdate(req.params.id, req.body, {
+  const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
 

@@ -21,6 +21,7 @@ function GetPost({ post }) {
   const { user, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.auth
   );
+  console.log(post);
 
   const dispatch = useDispatch();
 

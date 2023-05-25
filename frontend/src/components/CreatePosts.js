@@ -19,6 +19,7 @@ function CreatePosts() {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState('');
   const [productImage, setProductImage] = useState('');
+  //const [imageSecureUrl, setImageSecureUrl] = useState(''); // Added state for secure URL
   console.log(productImage);
 
   const { user } = useSelector((state) => state.auth);
@@ -53,7 +54,13 @@ function CreatePosts() {
 
   const Submithandler = (e) => {
     e.preventDefault();
-    dispatch(createPost({ text, image: productImage }));
+    dispatch(
+      createPost({
+        text,
+        user,
+        image: productImage,
+      })
+    );
     setText('');
     setOpen(false);
   };
@@ -97,16 +104,17 @@ function CreatePosts() {
               />
               <input
                 type="file"
-                accept="image/"
+                accept="image/*, image/jpeg, image/png, image/jpg"
                 onChange={handleImage}
               />
               {productImage ? (
                 <img
                   src={productImage}
                   alt={productImage}
+                  style={{ height: '250px' }}
                 />
               ) : (
-                <p>N image to preview</p>
+                <p>No image to preview</p>
               )}
               <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                 <Button onClick={() => setOpen(!open)}>Close</Button>
