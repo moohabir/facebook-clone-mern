@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const postSchema = mongoose.Schema(
+const storiesSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -11,17 +11,12 @@ const postSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add a text value'],
     },
+    category: { type: String },
     image: { type: Object },
-    likes: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
-      },
-    ],
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model('posts', postSchema);
+module.exports = mongoose.model('stories', storiesSchema);

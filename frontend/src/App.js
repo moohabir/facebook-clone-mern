@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import Navbar from './components/Navbar/Navbar';
 import { CssBaseline } from '@mui/material';
 import CreateStory from './components/CreateStory/CreateStory';
+import UserProfile from './components/userProfile/UserProfile';
 
 function App() {
   const { user } = useSelector((state) => state.auth);
@@ -59,6 +60,10 @@ function App() {
           <Route
             path="/posts"
             element={<Posts />}
+          />
+          <Route
+            path="/userProfile"
+            element={<UserProfile />}
           />
 
           <Route

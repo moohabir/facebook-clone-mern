@@ -1,7 +1,52 @@
-import { Card, CardContent, Typography } from '@mui/material';
-import React from 'react';
+import {
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  Typography,
+} from '@mui/material';
+import React, { useState } from 'react';
 import './CreateStory.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { createStory } from '../../features/stories/storiesSlice';
+
 function CreateStory() {
+  const [text, setText] = useState('');
+  const [storeImage, setStoreImage] = useState('');
+  const dispatch = useDispatch();
+
+  const { user } = useSelector((store) => store.auth);
+
+  const handleImage = async (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    TransformFile(file);
+  };
+
+  const TransformFile = (file) => {
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        console.log(reader.result);
+        setStoreImage(reader.result);
+      };
+    } else {
+      setStoreImage(' ');
+    }
+  };
+
+  const Submithandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      createStory({
+        text,
+        user,
+        image: storeImage,
+      })
+    );
+    setText('');
+  };
   return (
     <div
       style={{
@@ -33,8 +78,21 @@ function CreateStory() {
             flexDirection: 'column',
           }}
         >
-          <input type="file" />
-          <Typography>Create a photo story</Typography>
+          <form onSubmit={Submithandler}>
+            <TextField
+              placeholder={`What's on your mind, ${user?.name}`}
+              name="text"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              required
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImage}
+            />
+            <Button type="submit">Create a photo story </Button>
+          </form>
         </CardContent>
       </Card>
       <Card

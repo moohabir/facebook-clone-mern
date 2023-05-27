@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const postSchema = mongoose.Schema(
+const commentSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -12,16 +12,10 @@ const postSchema = mongoose.Schema(
       required: [true, 'Please add a text value'],
     },
     image: { type: Object },
-    likes: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
-      },
-    ],
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model('posts', postSchema);
+module.exports = mongoose.model('comments', commentSchema);

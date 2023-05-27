@@ -98,7 +98,7 @@ const deletePost = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 
-  // Make sure the logged in user matches the goal user
+  // Make sure the logged in user matches the post user
   if (post.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error('User not authorized');
@@ -109,9 +109,37 @@ const deletePost = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
+// Like or dislike a post
+const likePost = asyncHandler(async (req, res) => {
+  const post = await Post.findById(req.params.id);
+
+  if (!post) {
+    res.status(404);
+    throw new Error('Post not found');
+  }
+
+  // Check if the user has already liked the post
+  const likedIndex = post.likes.findIndex(
+    (like) => like.toString() === req.user?.id.toString()
+  );
+
+  if (likedIndex === -1) {
+    // User has not liked the post, add their like
+    post.likes.push(req.user?.id || null); // Add the user's ID if authenticated, or null if not
+  } else {
+    // User has already liked the post, remove their like
+    post.likes.splice(likedIndex, 1);
+  }
+
+  const updatedPost = await post.save();
+
+  res.status(200).json({ likes: updatedPost.likes });
+});
+
 module.exports = {
   getPosts,
   CreatePost,
   updatePost,
   deletePost,
+  likePost,
 };

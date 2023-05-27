@@ -5,6 +5,7 @@ const colors = require('colors');
 const dotenv = require('dotenv').config();
 const { errorHandler } = require('./middleware/errorMiddleware');
 const connectDB = require('./config/db');
+const stories = require('./Stories');
 const port = process.env.PORT || 9000;
 
 connectDB();
@@ -27,6 +28,12 @@ app.use(
 
 app.use('/api/posts', require('./routes/postRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
+//app.use('/api/comments', require('./routes/commentRoutes'));
+//app.use('/api/stories', require('./routes/storiesRoutes'));
+
+app.get('/api/stories/others', (req, res) => {
+  res.send(stories);
+});
 
 // Serve frontend
 if (process.env.NODE_ENV === 'production') {

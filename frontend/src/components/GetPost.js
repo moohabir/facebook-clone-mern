@@ -7,21 +7,41 @@ import {
   Divider,
   Container,
 } from '@mui/material';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { MoreHoriz, Close, Delete } from '@mui/icons-material';
+
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { deletePost } from '../features/posts/postSlice';
+import myPhoto from '../assets/myphoto.jpeg';
+import axios from 'axios';
 
 //import logo from '../assets/logo192.png';
 
 function GetPost({ post }) {
   const [open, setOpen] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
   const { user, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.auth
   );
-  console.log(post);
+  console.log(user);
+
+  //postId mahubo in async
+  const handleLike = async (postId) => {
+    try {
+      const response = await axios.post(`/api/posts/${postId}/like`);
+      console.log(response);
+      // Update the like count and liked status based on the response
+      setLikeCount(response.data.likes.length);
+      //setIsLiked(!isLiked);
+      setIsLiked(response.data.isLiked);
+    } catch (error) {
+      console.log(error);
+      // Handle error if the like request fails
+    }
+  };
 
   const dispatch = useDispatch();
 
@@ -57,26 +77,23 @@ function GetPost({ post }) {
               marginLeft: '10px',
             }}
           >
-            {post && (
-              <>
-                {user.image ? (
-                  <Typography>{user.image}</Typography>
-                ) : (
-                  <Avatar />
-                )}
-                <Typography sx={{ paddingTop: '10px' }}>
-                  {post?.user?.name}
-                </Typography>
-                <span style={{ paddingTop: '10px', alignSelf: 'center' }}>
-                  {new Date(post.createdAt).toLocaleDateString()}
-                </span>
-              </>
-            )}
+            <>
+              {user.token && user._id === post.user._id ? (
+                <Avatar src={myPhoto} />
+              ) : (
+                <Avatar />
+              )}
+
+              <Typography sx={{ paddingTop: '10px' }}>
+                {post?.user?.name}
+              </Typography>
+              <span style={{ paddingTop: '10px', alignSelf: 'center' }}>
+                {new Date(post.createdAt).toLocaleDateString()}
+              </span>
+            </>
           </div>
-          <IconButton onClick={() => setOpen(!open)}>
-            <MoreHorizIcon />
-          </IconButton>
-          {open && (
+
+          {open && user.token && user._id === post.user._id && (
             <div
               style={{
                 display: 'flex',
@@ -96,11 +113,48 @@ function GetPost({ post }) {
                 color="danger"
                 onClick={() => Delete(post._id)}
               >
-                Delete
+                <Delete />
+                Move to trash
               </Button>
               <Divider />
             </div>
           )}
+
+          {open && user._id !== post.user._id && (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Button
+                variant="outlined"
+                // onClick={() => updatePost(post)}
+              >
+                Save post
+              </Button>
+              <Button
+                variant="secondry"
+                color="danger"
+                onClick={() => Delete(post._id)}
+              >
+                Turn on notifications for this Post
+                <span>Add to your saved items</span>
+              </Button>
+              <Button
+                variant="secondry"
+                color="danger"
+                onClick={() => Delete(post._id)}
+              >
+                Embed
+              </Button>
+              <Divider />
+            </div>
+          )}
+          <IconButton onClick={() => setOpen(!open)}>
+            {open ? <Close /> : <MoreHoriz />}
+          </IconButton>
         </div>
 
         <div
@@ -132,24 +186,30 @@ function GetPost({ post }) {
             ''
           )}
         </div>
-        <p> like icons </p>
-        <div>
-          <Typography> likeicons 154 </Typography>
-          <div style={{ float: 'right' }}>
-            <Typography>60(comment.length) comments</Typography>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography> likeicons {likeCount} </Typography>
+          <div style={{ display: 'flex' }}>
+            <Typography sx={{ marginRight: '20px' }}>
+              60(comment.length) comments
+            </Typography>
             <Typography sx={{ width: '250px' }}>
               5(shares.length) shares
             </Typography>
           </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          {/*<button onClick={() => handleLike(post._id)}>
+          {isLiked ? 'Unlike' : 'Like'}
+        </button>*/}
+
           <Button
             variant="secondry"
             color="danger"
-            onClick={() => Like(post._id)}
+            onClick={() => setIsLiked(!isLiked)}
           >
-            Like
+            {isLiked ? 'Unlike' : 'Like'}
           </Button>
 
           <Button

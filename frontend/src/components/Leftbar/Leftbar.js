@@ -2,12 +2,17 @@ import { Avatar, Divider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import './Leftbar.css';
 import { useSelector } from 'react-redux';
-
+import myPhoto from '../../assets/myphoto.jpeg';
+import { useNavigate } from 'react-router-dom';
 function Leftbar() {
   const [seemore, setSeeMore] = useState(false);
+
   const { user, isError, isLoading, isSuccess, message } = useSelector(
     (state) => state.auth
   );
+
+  const navigate = useNavigate();
+
   return (
     <div
       style={{
@@ -29,9 +34,14 @@ function Leftbar() {
           alignItems: 'center',
           gap: '10px',
         }}
+        onClick={() => navigate('/userProfile')}
       >
         {/*halkaan hoose nameka update kadhig mid ah oo ah qofka loginka ah magaciisa*/}
-        <Avatar /> <span>{user.name}</span>
+        <Avatar
+          src={myPhoto}
+          alt={user.name}
+        />{' '}
+        <span>{user.name}</span>
       </div>
       <div
         style={{

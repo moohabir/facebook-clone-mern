@@ -2,6 +2,7 @@ import {
   Avatar,
   Card,
   CardActionArea,
+  CircularProgress,
   Container,
   Divider,
   Grid,
@@ -20,7 +21,9 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import stores from '../StoryData.js';
 import Add from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
-//import { UserAuthContext } from '../context/UserAuthContext.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import myPhoto from '../assets/myphoto.jpeg';
+import { getStories, reset } from '../features/stories/storiesSlice.js';
 
 const allCategories = [
   ...new Set(stores.map((eachcategory) => eachcategory.category)),
@@ -33,13 +36,12 @@ function Stories() {
   const { id, name, image } = stores[index];
   const [storeItems, setStoreItems] = useState(stores);
   const navigate = useNavigate();
+  const { user, isError, isLoading, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
 
+  const dispatch = useDispatch();
   const storiesSlice = storeItems.slice(0, 4);
-
-  const [currentUser, setCurrentUser] = useState({
-    name: 'Moha',
-    coverImage: '',
-  });
 
   function limitNumber(number) {
     if (number > stores.length - 1) {
@@ -73,15 +75,22 @@ function Stories() {
     //setLists(newItems);
   };
 
-  //useEffect(() => {
-  //const fetchStories = () => {
-  // axios
-  //// .get('http://localhost:3001/stores')
-  // .then((res) => setStories(res.data))
-  //7.catch((err) => console.log(err));
-  // };
-  //fetchStories();
-  //}, []);
+  useEffect(() => {
+    if (isError) {
+      console.log(message);
+    }
+    if (!user) {
+      navigate('/login');
+    }
+
+    dispatch(getStories());
+
+    return () => {
+      dispatch(reset());
+    };
+  }, [user, isError, isLoading, isSuccess, message, dispatch, navigate]);
+
+  if (isLoading) return <CircularProgress />;
 
   return (
     <Paper
@@ -187,13 +196,23 @@ function Stories() {
         >
           <img
             //src={image.coverImage}
-            src={currentUser.coverImage}
-            alt={currentUser.name}
-            style={{ width: '40', height: '40px' }}
+            src={myPhoto}
+            alt={user.name}
+            style={{ width: '40', height: '85%' }}
           />
 
-          <IconButton onClick={() => navigate('/stories/create')}>
-            <Add />
+          <IconButton
+            onClick={() => navigate('/stories/create')}
+            style={{ display: 'flex', flexDirection: 'column' }}
+          >
+            <Add
+              sx={{
+                backgroundColor: 'darkBlue',
+                color: 'white',
+                borderRadius: '50%',
+              }}
+            />
+            <Typography>Create story</Typography>
           </IconButton>
         </Card>
 

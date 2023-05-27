@@ -1,4 +1,8 @@
 import Button from '@mui/joy/Button';
+import CloseIcon from '@mui/icons-material/Close';
+
+// Rest of the module's code...
+
 import {
   Avatar,
   Container,
@@ -6,13 +10,17 @@ import {
   Stack,
   TextField,
   Typography,
+  IconButton,
+  Box,
 } from '@mui/material';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createPost } from '../features/posts/postSlice';
+import myPhoto from '../assets/myphoto.jpeg';
 
+import { styled } from '@mui/material/styles';
 const { useState } = require('react');
 
 function CreatePosts() {
@@ -65,6 +73,9 @@ function CreatePosts() {
     setOpen(false);
   };
 
+  // Determine if the button should be disabled
+  const isButtonDisabled = !text && !productImage;
+
   return (
     <Container sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
       <Modal
@@ -81,19 +92,47 @@ function CreatePosts() {
             boxShadow: 'lg',
           }}
         >
-          <Typography
-            id="basic-modal-dialog-title"
-            component="h2"
-            level="inherit"
-            fontSize="1.25em"
-            mb="0.25em"
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
           >
-            Create post
-          </Typography>
-          <form onSubmit={Submithandler}>
-            <Typography>
-              <Avatar src={user.image} /> {user.name}
+            <Typography
+              id="basic-modal-dialog-title"
+              component="h2"
+              level="inherit"
+              fontSize="1.25em"
+              mb="0.25em"
+              sx={{ textAlign: 'center' }}
+            >
+              Create post
             </Typography>
+            <IconButton onClick={() => setOpen(!open)}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          <form onSubmit={Submithandler}>
+            <Box sx={{ display: 'flex', marginBottom: '10px' }}>
+              <Avatar
+                src={myPhoto}
+                sx={{ marginRight: '10px' }}
+              />
+              <Box>
+                <Typography>{user?.name}</Typography>
+                <select
+                  style={{
+                    width: '50%',
+                    borderRadius: '5px',
+                    backgroundColor: 'grey',
+                  }}
+                >
+                  <option>Public</option>
+                  <option>Freinds</option>
+                  <option>Freinds Exception</option>
+                </select>
+              </Box>
+            </Box>
             <Stack spacing={2}>
               <TextField
                 placeholder={`What's on your mind, ${user?.name}`}
@@ -101,24 +140,37 @@ function CreatePosts() {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 required
+                sx={{
+                  border: 'none',
+                  padding: '15px',
+                  width: '100%',
+                  paddingRight: '10px',
+                }}
               />
+
               <input
                 type="file"
                 accept="image/*, image/jpeg, image/png, image/jpg"
                 onChange={handleImage}
               />
-              {productImage ? (
+              {productImage && (
                 <img
                   src={productImage}
                   alt={productImage}
                   style={{ height: '250px' }}
                 />
-              ) : (
-                <p>No image to preview</p>
               )}
               <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                <Button onClick={() => setOpen(!open)}>Close</Button>
-                <Button type="submit">Post</Button>
+                {!text || productImage}
+                <Button
+                  type="submit"
+                  sx={{
+                    width: '100%',
+                  }}
+                  disabled={isButtonDisabled}
+                >
+                  Post
+                </Button>
               </div>
             </Stack>
           </form>
@@ -137,7 +189,10 @@ function CreatePosts() {
         }}
       >
         <div style={{ display: 'flex', gap: '10px', marginLeft: '10px' }}>
-          <Avatar style={{ alignSelf: 'center' }} />
+          <Avatar
+            style={{ alignSelf: 'center' }}
+            src={myPhoto}
+          />
           <input
             placeholder={`What's on your mind, ${user?.name}`}
             style={{
