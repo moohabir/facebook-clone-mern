@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const API_URL = 'https://facebook-clone-mern.onrender.com/api/posts/';
 //const API_URL = 'http://localhost:9000/api/posts/';
-//const API_URL = 'https://facebook-clone-mern.netlify.app/api/posts/';
 
 // Create new post
 const createPost = async (postData, token) => {
