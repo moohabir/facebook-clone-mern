@@ -15,6 +15,14 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add a password'],
     },
+    friends: {
+      type: Array,
+      default: [],
+    },
+    location: String,
+    occupation: String,
+    viewedProfile: Number,
+    impressions: Number,
   },
   {
     timestamps: true,

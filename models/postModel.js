@@ -12,12 +12,41 @@ const postSchema = mongoose.Schema(
       required: [true, 'Please add a text value'],
     },
     image: { type: Object },
-    likes: [
+    likes: {
+      type: Number,
+      default: 0,
+    },
+    dislikes: {
+      type: Number,
+      default: 0,
+    },
+
+    comments: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
+        text: {
+          type: String,
+          required: true,
+        },
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'users',
+          required: true,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
       },
     ],
+
+    // likes: {
+    //type: Map,
+    // of: Boolean,
+    // },
+    //comments: {
+    //type: Array,
+    // default: [],
+    //},
   },
   {
     timestamps: true,

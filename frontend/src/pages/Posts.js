@@ -7,6 +7,7 @@ import CreatePosts from '../components/CreatePosts';
 import GetPost from '../components/GetPost';
 import Stories from '../components/Stories';
 import { getPosts, reset } from '../features/posts/postSlice';
+import Comments from '../components/Comments';
 
 function Posts() {
   const dispatch = useDispatch();
@@ -16,7 +17,6 @@ function Posts() {
     (state) => state.auth
   );
   const { posts } = useSelector((state) => state.posts);
-  console.log(posts);
 
   useEffect(() => {
     if (isError) {

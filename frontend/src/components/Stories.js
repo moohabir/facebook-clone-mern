@@ -119,6 +119,7 @@ function Stories() {
       >
         {allCategories.map((category, index) => (
           <IconButton
+            key={index}
             onClick={() => filterStoriesFromReels(category)}
             sx={{
               border: 'none',

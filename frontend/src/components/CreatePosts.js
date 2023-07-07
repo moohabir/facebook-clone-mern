@@ -26,6 +26,7 @@ const { useState } = require('react');
 function CreatePosts() {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState('');
+  const [comments, setComments] = useState([]);
   const [productImage, setProductImage] = useState('');
   //const [imageSecureUrl, setImageSecureUrl] = useState(''); // Added state for secure URL
   console.log(productImage);
@@ -160,14 +161,14 @@ function CreatePosts() {
                   style={{ height: '250px' }}
                 />
               )}
+
               <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                {!text || productImage}
                 <Button
                   type="submit"
                   sx={{
                     width: '100%',
                   }}
-                  disabled={isButtonDisabled}
+                  //disabled={isButtonDisabled}
                 >
                   Post
                 </Button>

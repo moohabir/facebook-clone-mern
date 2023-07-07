@@ -1,14 +1,19 @@
-import { Avatar } from '@mui/material';
+import { Avatar, IconButton, Typography } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 import React from 'react';
 
-function Comments() {
+function Comments({ list }) {
   return (
     <div>
       Comments
-      <form style={{ display: 'flex', width: '100%' }}>
+      <div style={{ display: 'flex', width: '100%' }}>
         <Avatar />
         <textarea />
-      </form>
+        <Typography>{list.text}</Typography>
+        <IconButton>
+          <SendIcon />
+        </IconButton>
+      </div>
     </div>
   );
 }
