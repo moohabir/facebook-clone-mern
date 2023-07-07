@@ -32,7 +32,7 @@ const CreatePost = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('Please add a text field');
   }
-  if (imageRes || text) {
+  if (image || text) {
     const post = await Post.create({
       text,
       user,
