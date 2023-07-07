@@ -77,7 +77,8 @@ function GetPost({ post }) {
   const handleCommentSubmit = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:9000/api/posts/${post._id}/comment`,
+        // `http://localhost:9000/api/posts/${post._id}/comment`,
+        `https://facebook-clone-mern.onrender.com/api/posts/${post._id}/comment`,
 
         {
           text: commentText,
@@ -323,13 +324,13 @@ function GetPost({ post }) {
               {list.text}
             </Typography>
 
-            {/*<Comments
+            <Comments
               list={list}
               key={list._id}
               handleCommentSubmit={handleCommentSubmit}
               commentText={commentText}
               setCommentText={setCommentText}
-        />*/}
+            />
           </div>
         ))}
       </Card>

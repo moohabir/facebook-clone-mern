@@ -182,11 +182,12 @@ function CreatePosts() {
         style={{
           display: 'flex',
           flexDirection: 'column',
+          justifyContent: 'center',
+          margin: 'auto',
           border: 'none',
           borderRadius: '10px',
           marginBottom: '20px',
           marginTop: '20px',
-          width: '100%',
         }}
       >
         <div style={{ display: 'flex', gap: '10px', marginLeft: '10px' }}>
@@ -216,8 +217,10 @@ function CreatePosts() {
         <div
           style={{
             display: 'flex',
-            justifyContent: 'space-around',
+
+            justifyContent: 'center',
             marginTop: '10px',
+            margin: 'auto',
           }}
         >
           <div
@@ -225,7 +228,7 @@ function CreatePosts() {
             color="primary"
             style={{
               display: 'flex',
-              justifyContent: 'center',
+
               alignItems: 'center',
             }}
           >

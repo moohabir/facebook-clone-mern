@@ -37,7 +37,14 @@ function Posts() {
 
   return (
     <>
-      <Container sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Container
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+      >
         <Stories />
         <div>
           <CreatePosts />
