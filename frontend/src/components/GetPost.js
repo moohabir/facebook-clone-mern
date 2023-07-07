@@ -318,19 +318,20 @@ function GetPost({ post }) {
                 disply: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
+                textAlign: 'center',
                 margin: 'auto',
               }}
             >
               {list.text}
             </Typography>
 
-            <Comments
+            {/* halkaan commentiga hagaaji style ahaan iyo functionalizyå‚<Comments
               list={list}
               key={list._id}
               handleCommentSubmit={handleCommentSubmit}
               commentText={commentText}
               setCommentText={setCommentText}
-            />
+            />*/}
           </div>
         ))}
       </Card>

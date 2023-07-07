@@ -145,6 +145,7 @@ export default function Navbar() {
           backgroundColor: 'white',
           color: 'black',
           width: '100%',
+
           display: 'flex',
           marginBottom: '20px',
         }}
