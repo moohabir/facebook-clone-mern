@@ -283,13 +283,13 @@ function GetPost({ post }) {
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
             />
-            <Button
+            <button
               type="submit"
               variant="secondry"
               color="danger"
             >
               Comment
-            </Button>
+            </button>
           </form>
 
           <Button
