@@ -77,15 +77,6 @@ function CreatePosts() {
   // Determine if the button should be disabled
   const isButtonDisabled = !text && !productImage;
 
-  const StyledPaper = styled(Paper)(({ theme }) => ({
-    /* Add any custom styles for the Paper component here */
-    [theme.breakpoints.up('sm')]: {
-      width: 600,
-    },
-    width: '100%',
-    padding: 10,
-  }));
-
   return (
     <Container
       sx={{
@@ -204,13 +195,14 @@ function CreatePosts() {
           display: 'flex',
           justifyContent: 'center',
           flexDirection: 'column',
-
+          width: '100%',
+          padding: 0,
           margin: 'auto',
-
           marginTop: '30px',
           marginBottom: '30px',
           borderRadius: '10px',
           paddingTop: '10',
+          flexWrap: 'wrap',
         }}
       >
         <div
@@ -248,6 +240,7 @@ function CreatePosts() {
             marginLeft: '10px',
             marginRight: '10px',
             //width: '20%',
+            flexWrap: 'wrap',
           }}
         >
           <div
