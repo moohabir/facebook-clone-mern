@@ -77,6 +77,15 @@ function CreatePosts() {
   // Determine if the button should be disabled
   const isButtonDisabled = !text && !productImage;
 
+  const StyledPaper = styled(Paper)(({ theme }) => ({
+    /* Add any custom styles for the Paper component here */
+    [theme.breakpoints.up('sm')]: {
+      width: 600,
+    },
+    width: '100%',
+    padding: 10,
+  }));
+
   return (
     <Container
       sx={{
@@ -87,7 +96,7 @@ function CreatePosts() {
         margin: 'auto',
         height: '100%',
         gap: '10',
-        width: '100%',
+        backgroundColor: "#f0f2f5'",
       }}
     >
       <Modal
@@ -204,7 +213,12 @@ function CreatePosts() {
           paddingTop: '10',
         }}
       >
-        <div style={{ display: 'flex', gap: '10px', marginLeft: '10px' }}>
+        <div
+          style={{
+            display: 'flex',
+            marginLeft: '10px',
+          }}
+        >
           <Avatar
             style={{ alignSelf: 'center' }}
             src={myPhoto}
@@ -231,10 +245,9 @@ function CreatePosts() {
         <div
           style={{
             display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 'auto',
             marginLeft: '10px',
+            marginRight: '10px',
+            //width: '20%',
           }}
         >
           <div
@@ -243,7 +256,7 @@ function CreatePosts() {
               alignItems: 'center',
             }}
           >
-            <Avatar style={{ marginRight: '10px' }} />
+            <Avatar style={{}} />
             <p>Live video</p>
           </div>
 
@@ -254,7 +267,7 @@ function CreatePosts() {
               alignItems: 'center',
             }}
           >
-            <Avatar style={{ marginRight: '10px' }} />
+            <Avatar style={{}} />
             <p>Photo/video</p>
             <input
               type="file"
@@ -267,9 +280,10 @@ function CreatePosts() {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              paddingRight: '10px',
             }}
           >
-            <Avatar style={{ marginRight: '10px' }} />
+            <Avatar style={{}} />
             <p>Feeling/activity</p>
           </div>
         </div>
