@@ -211,6 +211,7 @@ function CreatePosts() {
             display: 'flex',
             marginLeft: '10px',
             marginBottom: '10px',
+            gap: '10px',
           }}
         >
           <Avatar
