@@ -71,6 +71,7 @@ function CreatePosts() {
       })
     );
     setText('');
+    setProductImage('');
     setOpen(false);
   };
 
