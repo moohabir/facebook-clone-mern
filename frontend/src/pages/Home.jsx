@@ -13,7 +13,7 @@ function Home() {
   const { user } = useSelector((state) => state.auth);
 
   return (
-    <div style={{ display: 'flex', backgroundColor: '#f0f2f5' }}>
+    <div style={{ display: 'flex', backgroundColor: '#f0f2f5', padding: '10' }}>
       {user ? (
         <>
           <Grid

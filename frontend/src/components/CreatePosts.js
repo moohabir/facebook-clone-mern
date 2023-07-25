@@ -78,7 +78,14 @@ function CreatePosts() {
   const isButtonDisabled = !text && !productImage;
 
   return (
-    <Container sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+    <Container
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        justifyContent: 'center',
+      }}
+    >
       <Modal
         open={open}
         onClose={() => setOpen(false)}
@@ -180,14 +187,18 @@ function CreatePosts() {
 
       <Paper
         style={{
+          flex: 3,
+          width: '100%',
           display: 'flex',
-          flexDirection: 'column',
           justifyContent: 'center',
+          flexDirection: 'column',
+          alignItems: 'center',
           margin: 'auto',
-          border: 'none',
+          justifyItems: 'center',
+          marginTop: '30px',
+          marginBottom: '30px',
           borderRadius: '10px',
-          marginBottom: '20px',
-          marginTop: '20px',
+          paddingTop: '10',
         }}
       >
         <div style={{ display: 'flex', gap: '10px', marginLeft: '10px' }}>
@@ -202,7 +213,7 @@ function CreatePosts() {
               backgroundColor: '#f0f2f5',
               display: 'flex',
               alignItems: 'center',
-              width: '88%',
+              //width: '88%',
               height: '2px',
               padding: '20px',
               border: 'none',
@@ -218,47 +229,37 @@ function CreatePosts() {
           style={{
             display: 'flex',
 
-            justifyContent: 'center',
-            marginTop: '10px',
-            margin: 'auto',
+            alignItems: 'center',
           }}
         >
-          <div
-            variant="contained"
-            color="primary"
-            style={{
-              display: 'flex',
+          <Avatar style={{ marginRight: '10px' }} />
+          <p>Live video</p>
+        </div>
 
-              alignItems: 'center',
-            }}
-          >
-            <Avatar style={{ marginRight: '10px' }} />
-            <p>Live video</p>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar style={{ marginRight: '10px' }} />
-            <p>Photo/video</p>
-            <input
-              type="file"
-              placeholder="Photo/video"
-            />
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar style={{ marginRight: '10px' }} />
-            <p>Feeling/activity</p>
-          </div>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar style={{ marginRight: '10px' }} />
+          <p>Photo/video</p>
+          <input
+            type="file"
+            placeholder="Photo/video"
+          />
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar style={{ marginRight: '10px' }} />
+          <p>Feeling/activity</p>
         </div>
       </Paper>
     </Container>
