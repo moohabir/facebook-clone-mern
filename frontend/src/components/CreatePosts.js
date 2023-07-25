@@ -210,6 +210,7 @@ function CreatePosts() {
           style={{
             display: 'flex',
             marginLeft: '10px',
+            marginBottom: '10px',
           }}
         >
           <Avatar
@@ -223,7 +224,8 @@ function CreatePosts() {
               backgroundColor: '#f0f2f5',
               display: 'flex',
               alignItems: 'center',
-              width: '88%',
+              width: '70%',
+              fontSize: '0.95rem',
               height: '2px',
               padding: '20px',
               border: 'none',
