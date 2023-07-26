@@ -33,6 +33,7 @@ function Leftbar() {
           marginTop: '5px',
           alignItems: 'center',
           gap: '10px',
+          cursor: 'pointer',
         }}
         onClick={() => navigate('/userProfile')}
       >

@@ -52,7 +52,6 @@ function UserProfile() {
   const Like = () => {};
   return (
     <Container sx={{ marginTop: '180px' }}>
-      userProfile
       <Box sx={{ display: 'flex' }}>
         <Avatar src={myPhoto} />
         {user && user.name ? <Typography>{user.name}</Typography> : null}
