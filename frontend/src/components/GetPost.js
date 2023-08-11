@@ -45,7 +45,7 @@ function GetPost({ post }) {
   const handleLike = async () => {
     try {
       const response = await axios.post(
-        process.env.SERVER_ENDPONINTS + `/${post._id}/like`
+        `https://facebook-clone-mern.onrender.com/api/posts/${post._id}/like`
       );
       console.log(response.data.likes);
       setLikes(response.data.likes);
@@ -57,7 +57,7 @@ function GetPost({ post }) {
   const handleDislike = async () => {
     try {
       const response = await axios.post(
-        process.env.SERVER_ENDPONINTS + `/${post._id}/unlike`
+        `https://facebook-clone-mern.onrender.com/api/posts/${post._id}/unlike`
       );
       console.log(response.data.dislikes);
       setDislikes(response.data.dislikes);
@@ -77,7 +77,8 @@ function GetPost({ post }) {
   const handleCommentSubmit = async () => {
     try {
       const response = await axios.post(
-        process.env.SERVER_ENDPONINTS + `${post._id}/comment`,
+        // `http://localhost:9000/api/posts/${post._id}/comment`,
+        `https://facebook-clone-mern.onrender.com/api/posts/${post._id}/comment`,
 
         {
           text: commentText,

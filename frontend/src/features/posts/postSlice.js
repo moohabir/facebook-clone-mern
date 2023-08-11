@@ -28,7 +28,7 @@ export const createPost = createAsyncThunk(
   }
 );
 
-// Get user goals
+// Get user posts
 export const getPosts = createAsyncThunk(
   'posts/getAll',
   async (_, thunkAPI) => {
@@ -47,13 +47,31 @@ export const getPosts = createAsyncThunk(
   }
 );
 
-// Delete user goal
+// Delete user post
 export const deletePost = createAsyncThunk(
   'posts/delete',
   async (id, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
       return await postService.deletePost(id, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const handleComment = createAsyncThunk(
+  'posts/comment',
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await postService.handleComment(id, token);
     } catch (error) {
       const message =
         (error.response &&

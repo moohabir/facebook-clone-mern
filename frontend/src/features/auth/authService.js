@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const API_URL = 'https://facebook-clone-mern.onrender.com/api/users/';
-//const API_URL = 'http://localhost:9000/api/users/';
+//const API_URL_AUTH = process.env.REACT_APP_API_URL_AUTH;
+const API_URL_AUTH = 'https://facebook-clone-mern.onrender.com/api/users/';
 
 // Register user
 const register = async (userData) => {
-  const response = await axios.post(API_URL, userData);
+  const response = await axios.post(API_URL_AUTH, userData);
 
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
@@ -16,7 +16,7 @@ const register = async (userData) => {
 
 // Login user
 const login = async (userData) => {
-  const response = await axios.post(API_URL + 'login', userData);
+  const response = await axios.post(API_URL_AUTH + 'login', userData);
 
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
