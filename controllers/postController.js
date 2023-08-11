@@ -153,7 +153,7 @@ const addComment = asyncHandler(async (req, res) => {
       return res.status(404).json({ error: 'Post not found' });
     }
 
-    // Create the commen
+    // Create the comment
     const comment = {
       text,
       user,
@@ -163,7 +163,7 @@ const addComment = asyncHandler(async (req, res) => {
     post.comments.push(comment);
     await post.save();
 
-    res.status(201).json(post);
+    res.status(201).json([...post]);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }

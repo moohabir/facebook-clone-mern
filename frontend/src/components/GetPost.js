@@ -47,7 +47,7 @@ function GetPost({ post }) {
       const response = await axios.post(
         `https://facebook-clone-mern.onrender.com/api/posts/${post._id}/like`
       );
-      console.log(response.data.likes);
+      console.log(response);
       setLikes(response.data.likes);
     } catch (error) {
       console.error('Error removing dislike:', error);
@@ -59,7 +59,7 @@ function GetPost({ post }) {
       const response = await axios.post(
         `https://facebook-clone-mern.onrender.com/api/posts/${post._id}/unlike`
       );
-      console.log(response.data.dislikes);
+      console.log(response.post.dislikes);
       setDislikes(response.data.dislikes);
     } catch (error) {
       console.error('Error removing dislike:', error);
