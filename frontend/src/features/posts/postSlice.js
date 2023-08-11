@@ -68,10 +68,10 @@ export const deletePost = createAsyncThunk(
 
 export const handleComment = createAsyncThunk(
   'posts/comment',
-  async (id, thunkAPI) => {
+  async (id, thunkAPI, postData) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await postService.handleComment(id, token);
+      return await postService.handleComment(id, token, postData);
     } catch (error) {
       const message =
         (error.response &&
@@ -129,6 +129,19 @@ export const postSlice = createSlice({
         );
       })
       .addCase(deletePost.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(handleComment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(handleComment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.posts.comments.push(action.payload);
+      })
+      .addCase(handleComment.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

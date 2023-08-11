@@ -20,7 +20,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { deletePost } from '../features/posts/postSlice';
+import { deletePost, handleComment } from '../features/posts/postSlice';
 import myPhoto from '../assets/myphoto.jpeg';
 import axios from 'axios';
 import Comments from './Comments';
@@ -39,6 +39,8 @@ function GetPost({ post }) {
   const { user, isError, isSuccess, isLoading, message } = useSelector(
     (state) => state.auth
   );
+
+  const dispatch = useDispatch();
 
   //console.log(post);
 
@@ -66,8 +68,6 @@ function GetPost({ post }) {
     }
   };
 
-  const dispatch = useDispatch();
-
   const Delete = (id) => {
     dispatch(deletePost(id));
   };
@@ -75,27 +75,29 @@ function GetPost({ post }) {
   const Share = () => {};
 
   const handleCommentSubmit = async () => {
-    try {
-      const response = await axios.post(
-        // `http://localhost:9000/api/posts/${post._id}/comment`,
-        `https://facebook-clone-mern.onrender.com/api/posts/${post._id}/comment`,
+    // try {
+    //const response = await axios.post(
+    // `http://localhost:9000/api/posts/${post._id}/comment`,
+    //  `https://facebook-clone-mern.onrender.com/api/posts/${post._id}/comment`,
 
-        {
-          text: commentText,
-          user: user._id || null,
-        }
-      );
+    const comment = {
+      text: commentText,
+      user: user._id,
+    };
 
-      if (response.status === 200 && user) {
-        console.log(response.data.comments);
-        setComments(response.data.comments);
-        setCommentText('');
-      } else {
-        console.error('Error adding comment');
-      }
-    } catch (error) {
-      console.error('Error adding comment:', error);
-    }
+    dispatch(handleComment(comment));
+    setCommentText('');
+
+    //  if (response.status === 200 && user) {
+    //  console.log(response.data.comments);
+    // setComments(response.data.comments);
+    // setCommentText('');
+    //  } else {
+    //  console.error('Error adding comment');
+    // }
+    //  } catch (error) {
+    //   console.error('Error adding comment:', error);
+    // }
   };
 
   return (
