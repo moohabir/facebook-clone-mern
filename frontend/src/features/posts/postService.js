@@ -42,7 +42,7 @@ const deletePost = async (postId, token) => {
   return response.data;
 };
 
-const handleComment = async (postId, token, postData) => {
+const handleComment = async (postId, token, commentData) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -51,9 +51,8 @@ const handleComment = async (postId, token, postData) => {
 
   const response = await axios.post(
     API_URL + postId + 'comment',
-    postId,
     config,
-    postData
+    commentData
   );
 
   return response.data;

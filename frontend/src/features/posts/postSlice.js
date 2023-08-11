@@ -68,10 +68,10 @@ export const deletePost = createAsyncThunk(
 
 export const handleComment = createAsyncThunk(
   'posts/comment',
-  async (id, thunkAPI, postData) => {
+  async (id, thunkAPI, commentData) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await postService.handleComment(id, token, postData);
+      return await postService.handleComment(token, commentData);
     } catch (error) {
       const message =
         (error.response &&
