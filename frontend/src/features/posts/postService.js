@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://facebook-clone-mern.onrender.com/api/posts/';
-//const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL;
 
 // Create new post
 const createPost = async (postData, token) => {

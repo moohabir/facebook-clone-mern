@@ -1,5 +1,26 @@
 const mongoose = require('mongoose');
 
+const commentSchema = mongoose.Schema(
+  {
+    text: {
+      type: String,
+      required: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users',
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 const postSchema = mongoose.Schema(
   {
     user: {
@@ -20,33 +41,7 @@ const postSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-
-    comments: [
-      {
-        text: {
-          type: String,
-          required: true,
-        },
-        user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'users',
-          required: true,
-        },
-        createdAt: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
-
-    // likes: {
-    //type: Map,
-    // of: Boolean,
-    // },
-    //comments: {
-    //type: Array,
-    // default: [],
-    //},
+    comments: [commentSchema], // Embed the comments schema as an array
   },
   {
     timestamps: true,

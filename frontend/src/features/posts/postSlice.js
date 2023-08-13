@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import postService from './postService';
+import axios from 'axios';
+
+const url = process.env.REACT_APP_API_URL;
 
 const initialState = {
   posts: [],
@@ -66,20 +69,19 @@ export const deletePost = createAsyncThunk(
   }
 );
 
-export const handleComment = createAsyncThunk(
-  'posts/comment',
-  async (id, thunkAPI, commentData) => {
+// Add comment
+export const addCommentToPost = createAsyncThunk(
+  'posts/addComment',
+  async ({ postId, text, user }) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await postService.handleComment(token, commentData);
+      const response = await axios.post(url + `${postId}/comment`, {
+        text,
+        user,
+      });
+
+      return response.data; // Return the updated post data with comments
     } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      return thunkAPI.rejectWithValue(message);
+      throw error;
     }
   }
 );
@@ -89,6 +91,26 @@ export const postSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => initialState,
+    addComment: (state, action) => {
+      const { postId, text, user } = action.payload;
+      const postIndex = state.posts.findIndex((post) => post._id === postId);
+
+      if (postIndex !== -1) {
+        const newComment = {
+          postId, // You need to implement a function to generate unique IDs
+          text,
+          user,
+        };
+
+        const updatedPosts = [...state.posts];
+        updatedPosts[postIndex] = {
+          ...updatedPosts[postIndex],
+          comments: [...updatedPosts[postIndex].comments, newComment],
+        };
+
+        state.posts = updatedPosts;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -133,18 +155,15 @@ export const postSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(handleComment.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(handleComment.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.posts.comments.push(action.payload);
-      })
-      .addCase(handleComment.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
+      .addCase(addCommentToPost.fulfilled, (state, action) => {
+        const updatedPost = action.payload;
+        const postIndex = state.posts.findIndex(
+          (post) => post._id === updatedPost._id
+        );
+
+        if (postIndex !== -1) {
+          state.posts[postIndex] = updatedPost;
+        }
       });
   },
 });

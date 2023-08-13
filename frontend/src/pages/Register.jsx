@@ -47,13 +47,6 @@ function Register() {
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  //useEffect(() => {
-  //const timeout = setInterval(() => {
-  //setError(false);
-  //}, 3000);
-  //setTimeout(() => {}, timeout);
-  //}, []);
-
   const handleChange = (e) => {
     setUserData((prevState) => ({
       ...prevState,

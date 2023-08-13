@@ -6,7 +6,7 @@ const dotenv = require('dotenv').config();
 const { errorHandler } = require('./middleware/errorMiddleware');
 const connectDB = require('./config/db');
 const stories = require('./Stories');
-const port = process.env.PORT || 9000;
+const port = process.env.PORT;
 
 connectDB();
 
@@ -19,9 +19,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
     origin: [
-      'https://facebook-clone-mern.netlify.app',
-      'http://localhost:3000',
-      'https://facebook-clone-mern.onrender.com',
+      process.env.NETLIFY_URL,
+      process.env.LOCALHOST,
+      process.env.RENDER_URL,
     ],
   })
 );
@@ -51,5 +51,5 @@ if (process.env.NODE_ENV === 'production') {
 app.use(errorHandler);
 
 app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
+  console.log(`Server started on correct Port`);
 });

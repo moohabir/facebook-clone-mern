@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-//const API_URL_AUTH = process.env.REACT_APP_API_URL_AUTH;
-const API_URL_AUTH = 'https://facebook-clone-mern.onrender.com/api/users/';
+const API_URL_AUTH = process.env.REACT_APP_API_URL_AUTH;
 
 // Register user
 const register = async (userData) => {

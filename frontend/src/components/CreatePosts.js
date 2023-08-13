@@ -1,40 +1,23 @@
-import Button from '@mui/joy/Button';
-import CloseIcon from '@mui/icons-material/Close';
+import { Avatar, Container, Paper } from '@mui/material';
 
-// Rest of the module's code...
-
-import {
-  Avatar,
-  Container,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-  IconButton,
-  Box,
-} from '@mui/material';
-import Modal from '@mui/joy/Modal';
-import ModalDialog from '@mui/joy/ModalDialog';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+
 import { createPost } from '../features/posts/postSlice';
 import myPhoto from '../assets/myphoto.jpeg';
 
-import { styled } from '@mui/material/styles';
 import ModalForm from './ModalForm';
 const { useState } = require('react');
 
 function CreatePosts() {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState('');
-  const [comments, setComments] = useState([]);
+
   const [productImage, setProductImage] = useState('');
   //const [imageSecureUrl, setImageSecureUrl] = useState(''); // Added state for secure URL
   console.log(productImage);
 
   const { user } = useSelector((state) => state.auth);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const newPost = () => {

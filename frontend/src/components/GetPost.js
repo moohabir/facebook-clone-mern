@@ -16,14 +16,16 @@ import {
   ThumbUpAltOutlined,
 } from '@mui/icons-material';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { deletePost, handleComment } from '../features/posts/postSlice';
+import { addCommentToPost, deletePost } from '../features/posts/postSlice';
 import myPhoto from '../assets/myphoto.jpeg';
 import axios from 'axios';
 import Comments from './Comments';
+
+const url = process.env.REACT_APP_API_URL;
 
 //import logo from '../assets/logo192.png';
 
@@ -46,9 +48,7 @@ function GetPost({ post }) {
 
   const handleLike = async () => {
     try {
-      const response = await axios.post(
-        `https://facebook-clone-mern.onrender.com/api/posts/${post._id}/like`
-      );
+      const response = await axios.post(url + `${post._id}/like`);
       console.log(response);
       setLikes(response.data.likes);
     } catch (error) {
@@ -58,9 +58,7 @@ function GetPost({ post }) {
 
   const handleDislike = async () => {
     try {
-      const response = await axios.post(
-        `https://facebook-clone-mern.onrender.com/api/posts/${post._id}/unlike`
-      );
+      const response = await axios.post(url + `${post._id}/unlike`);
       console.log(response.post.dislikes);
       setDislikes(response.data.dislikes);
     } catch (error) {
@@ -74,31 +72,27 @@ function GetPost({ post }) {
 
   const Share = () => {};
 
-  const handleCommentSubmit = async () => {
-    // try {
-    //const response = await axios.post(
-    // `http://localhost:9000/api/posts/${post._id}/comment`,
-    //  `https://facebook-clone-mern.onrender.com/api/posts/${post._id}/comment`,
+  const handleComment = async (e) => {
+    e.preventDefault();
+    try {
+      await dispatch(
+        addCommentToPost({
+          postId: post._id,
+          text: commentText,
+          user: user._id,
+        })
+      );
+      // Check the response object for the updated post data
 
-    const comment = {
-      text: commentText,
-      user: user._id,
-    };
+      setCommentText('');
 
-    dispatch(handleComment(comment));
-    setCommentText('');
-
-    //  if (response.status === 200 && user) {
-    //  console.log(response.data.comments);
-    // setComments(response.data.comments);
-    // setCommentText('');
-    //  } else {
-    //  console.error('Error adding comment');
-    // }
-    //  } catch (error) {
-    //   console.error('Error adding comment:', error);
-    // }
+      window.location.reload();
+    } catch (error) {
+      console.error('Error adding comment:', error);
+    }
   };
+
+  const commentSlice = post.comments.slice(0, 4);
 
   return (
     <Container>
@@ -279,19 +273,13 @@ function GetPost({ post }) {
             </Box>
           </IconButton>
 
-          <form onSubmit={() => handleCommentSubmit()}>
+          <form onSubmit={handleComment}>
             <input
               type="text"
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
             />
-            <button
-              type="submit"
-              variant="secondry"
-              color="danger"
-            >
-              Comment
-            </button>
+            <button type="submit">Comment</button>
           </form>
 
           <Button
@@ -303,7 +291,7 @@ function GetPost({ post }) {
           </Button>
         </div>
         <IconButton>
-          <Send onClick={handleCommentSubmit} />
+          <Send onClick={''} />
         </IconButton>
         {post.comments.map((list) => (
           <div

@@ -143,30 +143,26 @@ const deletePost = asyncHandler(async (req, res) => {
 
 // Create a new comment on a post
 const addComment = asyncHandler(async (req, res) => {
-  try {
-    const { postId } = req.params;
-    const { text, user } = req.body;
+  const { postId } = req.params;
+  const { text, user } = req.body;
 
-    // Find the post
-    const post = await Post.findById(postId);
-    if (!post) {
-      return res.status(404).json({ error: 'Post not found' });
-    }
-
-    // Create the comment
-    const comment = {
-      text,
-      user,
-    };
-
-    // Add the comment to the post
-    post.comments.push(comment);
-    await post.save();
-
-    res.status(201).json([...post]);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+  // Find the post
+  const post = await Post.findById(postId);
+  if (!post) {
+    return res.status(404).json({ error: 'Post not found' });
   }
+
+  // Create the comment
+  const comment = {
+    text,
+    user,
+  };
+
+  // Add the comment to the post
+  post.comments.push(comment);
+  await post.save();
+
+  res.status(200).json({ Message: 'Comment created', post });
 });
 
 // Like a post
