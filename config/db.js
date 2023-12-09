@@ -1,3 +1,6 @@
+require('dotenv').config();
+console.log('All Environment Variables:', process.env);
+
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
@@ -7,9 +10,9 @@ const connectDB = async () => {
       useUnifiedTopology: true,
     });
 
-    console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     process.exit(1);
   }
 };
