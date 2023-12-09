@@ -36,17 +36,17 @@ app.get('/api/stories/others', (req, res) => {
 });
 
 // Serve frontend
-if (process.env.NODE_ENV === 'production') {
-  // Serve static files from the "build" folder
-  app.use(express.static(path.join(__dirname, './frontend/build')));
+//if (process.env.NODE_ENV === 'production') {
+// Serve static files from the "build" folder
+app.use(express.static(path.join(__dirname, './frontend/build')));
 
-  // Route all other requests to the frontend's "index.html" file
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, './frontend/build', 'index.html'))
-  );
-} else {
-  app.get('/', (req, res) => res.send('Please set to production'));
-}
+// Route all other requests to the frontend's "index.html" file
+//app.get('*', (req, res) =>
+//  res.sendFile(path.resolve(__dirname, './frontend/build', 'index.html'))
+// );
+//} else {
+//app.get('/', (req, res) => res.send('Please set to production'));
+//}
 
 app.use(errorHandler);
 
